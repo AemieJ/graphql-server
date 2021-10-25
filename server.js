@@ -15,7 +15,7 @@ const root = {
   updateMovie: updateMovieByTitle
 }
 
-// // Create an express server and a GraphQL endpoint
+// Create an express server and a GraphQL endpoint
 const app = express()
 app.use('/graphql', expressGraphQL({
   schema: movieSchema,
