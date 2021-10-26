@@ -1,24 +1,24 @@
 require("dotenv").config();
 const jwt = require("jsonwebtoken");
-const { errorType } = require("../errors/constants");
+const { errorName } = require("../errors/constants");
 const { User } = require("../models/index");
 
 const verification = async (accessToken) => {
     const currentTimeSinceEpoch = Math.floor(new Date().getTime() / 1000);
 
     const token = accessToken;
-    if (!token) throw new Error(errorType.INVALID_DENIED);
+    if (!token) throw new Error(errorName.INVALID_DENIED);
     const check = jwt.decode(token);
-    if (!check) throw new Error(errorType.INVALID_DENIED);
+    if (!check) throw new Error(errorName.INVALID_DENIED);
 
     const accessTokenExpires = check.exp;
     const user = await User.findOne({ email: check.email });
     
     const refreshPayload = jwt.decode(user.refreshToken);
-    if (!refreshPayload) throw new Error(errorType.NOT_LOGGED_IN);
+    if (!refreshPayload) throw new Error(errorName.NOT_LOGGED_IN);
 
     if (currentTimeSinceEpoch > refreshPayload.exp)
-        throw new Error(errorType.REFRESH_EXPIRED);
+        throw new Error(errorName.REFRESH_EXPIRED);
 
     // refreshing the access token with the help of refresh token
     if (currentTimeSinceEpoch > accessTokenExpires) {
@@ -32,14 +32,14 @@ const verification = async (accessToken) => {
             };
             return { token: token, payload: "" };
         } else {
-            throw new Error(errorType.REFRESH_EXPIRED);
+            throw new Error(errorName.REFRESH_EXPIRED);
         }
     } else {
         try {
             const payload = jwt.verify(token, process.env.TOKEN_SECRET);
             return { token: "", payload: payload };
         } catch (err) {
-            throw new Error(errorType.INVALID_DENIED);
+            throw new Error(errorName.INVALID_DENIED);
         }
     } 
 };

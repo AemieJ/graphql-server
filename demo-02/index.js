@@ -3,7 +3,12 @@ const mongoose = require("mongoose");
 const dotenv = require("dotenv");
 const expressGraphQL = require('express-graphql').graphqlHTTP
 const { userSchema } = require("./schema/index");
-const { register, login, update } = require("./resolvers/index");
+const { register, 
+    login, 
+    update, 
+    forgotPassword,
+    isValidPassURL,
+    resetPassword } = require("./resolvers/index");
 const getErrorCode = require("./errors/getCode");
 
 const app = express();
@@ -18,7 +23,10 @@ mongoose.connect(process.env.DB_CONNECT, {
 const root = {
     registerUser: register,
     loginUser: login,
-    updateUserInfo: update
+    updateUserInfo: update,
+    forgotPass: forgotPassword,
+    isCorrectResetURL: isValidPassURL,
+    resetPass: resetPassword
 }
 
 app.use('/graphql', expressGraphQL({

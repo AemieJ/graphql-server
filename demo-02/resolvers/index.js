@@ -1,8 +1,11 @@
 const { register, login } = require("./auth.controller");
-const { update } = require("./profile.controller");
+const { update, forgotPassword, isValidPassURL, resetPassword } = require("./profile.controller");
 
 module.exports = {
     register,
     login,
-    update
+    update,
+    forgotPassword,
+    isValidPassURL,
+    resetPassword
 };

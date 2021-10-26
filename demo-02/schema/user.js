@@ -3,6 +3,7 @@ const { buildSchema } = require('graphql')
 const schema = buildSchema(`
     type Query {
         user(email: String!): User
+        isCorrectResetURL(email: String!, token: String!): Boolean!
     },
 
     input RegisterUser {
@@ -18,12 +19,19 @@ const schema = buildSchema(`
 
     input UpdateUser {
         name: String
-    }
+    },
 
     type Mutation {
        registerUser(body: RegisterUser!): User!
        updateUserInfo(email: String!, body: UpdateUser!, accessToken: String!): UpdateObject!
        loginUser(body: LoginUser!): Token!
+       forgotPass(email: String!): ForgotRes!
+       resetPass(email: String!, password: String!, rePass: String!): String!
+    },
+    type ForgotRes {
+        name: String!
+        email: String!
+        message: String!
     },
 
     type TokenObject {
@@ -43,7 +51,7 @@ const schema = buildSchema(`
     type User {
         name: String!
         email: String!
-    }
+    },
 `)
 
 module.exports = schema
