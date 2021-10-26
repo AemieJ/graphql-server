@@ -20,16 +20,16 @@ const updateUser = async (email, req, accessToken) => {
 
     return {
       msg: {
-        name: req.name,
-        email: user.email,
+        update: req,
+        email,
         accessToken: { token: '', expires: 0 }
       }
     }
   } else {
     return {
       msg: {
-        name: req.name,
-        email: email,
+        req,
+        email,
         accessToken: token.accessToken
       }
     }

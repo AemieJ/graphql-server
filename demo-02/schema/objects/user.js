@@ -3,6 +3,7 @@ input RegisterUser {
     name: String!
     email: String!
     password: String!
+    gender: String!
 },
 
 input LoginUser {
@@ -12,6 +13,8 @@ input LoginUser {
 
 input UpdateUser {
     name: String
+    gender: String
+    profile: String
 },
 
 type ForgotRes {
@@ -24,8 +27,13 @@ type TokenObject {
     token: String!
     expires: Int!
 },
-type UpdateObject {
+type ObjectUpdating {
     name: String
+    gender: String
+    profile: String
+}
+type UpdateObject {
+    update: ObjectUpdating
     email: String
     accessToken: TokenObject
 },
@@ -37,6 +45,8 @@ type Token {
 type User {
     name: String!
     email: String!
+    gender: String!
+    profile: String!
 },`
 
 module.exports = userObj

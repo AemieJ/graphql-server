@@ -19,6 +19,14 @@ const userSchema = new mongoose.Schema({
     min: 6,
     max: 256
   },
+  gender: {
+    type: String, 
+    required: true
+  },
+  profile: {
+    type: String,
+    required: false
+  },
   refreshToken: {
     type: String,
     required: false,
