@@ -1,4 +1,4 @@
-const userMutation = require("./user")
+const userMutation = require('./user')
 
 const mutation = `
 type Mutation {

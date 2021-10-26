@@ -1,4 +1,4 @@
-const userObj = require("./user");
+const userObj = require('./user')
 
 const object = `
 ${userObj}`

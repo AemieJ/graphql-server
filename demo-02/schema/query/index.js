@@ -1,5 +1,5 @@
-const userQuery = require("./user");
-const greeterQuery = require("./greeter");
+const userQuery = require('./user')
+const greeterQuery = require('./greeter')
 
 const query = `
 type Query {

@@ -1,32 +1,32 @@
-require("dotenv").config();
+require('dotenv').config()
 
-const bcrypt = require("bcrypt");
-const { errorName } = require('../errors/constants');
+const bcrypt = require('bcrypt')
+const { errorName } = require('../errors/constants')
 
-const { User } = require("../models/index");
-const { loginValidation } = require("../validations/index");
+const { User } = require('../models/index')
+const { loginValidation } = require('../validations/index')
 
 const fetchUser = async (req) => {
-    const { email, password } = req;
+  const { email, password } = req
 
-    let { error } = loginValidation(req);
-    
-    if (error) throw new Error(errorName.VALIDATION_ERROR)
+  const { error } = loginValidation(req)
 
-    const user = await User.findOne({ email });
-    if (!user) throw new Error(errorName.USER_NOT_EXISTS)
+  if (error) throw new Error(errorName.VALIDATION_ERROR)
 
-    const checkPass = await bcrypt.compare(password, user.password);
-    if (!checkPass) throw new Error(errorName.USER_INCORRECT_PASS)
-    
-    return {
-        status: 200, 
-        msg: {
-            id: user._id,
-            name: user.name,
-            email: user.email
-        }
-    };
+  const user = await User.findOne({ email })
+  if (!user) throw new Error(errorName.USER_NOT_EXISTS)
+
+  const checkPass = await bcrypt.compare(password, user.password)
+  if (!checkPass) throw new Error(errorName.USER_INCORRECT_PASS)
+
+  return {
+    status: 200,
+    msg: {
+      id: user._id,
+      name: user.name,
+      email: user.email
+    }
+  }
 }
 
-module.exports = fetchUser;
+module.exports = fetchUser
