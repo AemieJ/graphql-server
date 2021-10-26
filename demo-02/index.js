@@ -2,14 +2,14 @@ const express = require("express");
 const mongoose = require("mongoose");
 const dotenv = require("dotenv");
 const expressGraphQL = require('express-graphql').graphqlHTTP
-const { userSchema } = require("./schema/index");
+const { schema } = require("./schema/index");
+const getErrorCode = require("./errors/getCode");
 const { register, 
     login, 
     update, 
     forgotPassword,
     isValidPassURL,
     resetPassword } = require("./resolvers/index");
-const getErrorCode = require("./errors/getCode");
 
 const app = express();
 const PORT = 4000 || process.env.PORT;
@@ -26,11 +26,12 @@ const root = {
     updateUserInfo: update,
     forgotPass: forgotPassword,
     isCorrectResetURL: isValidPassURL,
-    resetPass: resetPassword
+    resetPass: resetPassword,
+    greeter: ({ name }) => {return `Hello ${name}`}
 }
 
 app.use('/graphql', expressGraphQL({
-    schema: userSchema,
+    schema: schema,
     rootValue: root,
     graphiql: true,
     customFormatErrorFn: (err) => ({

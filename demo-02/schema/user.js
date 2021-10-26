@@ -1,6 +1,4 @@
-const { buildSchema } = require('graphql')
-
-const schema = buildSchema(`
+const userSchema = /* GRAPH QL */ `
     type Query {
         user(email: String!): User
         isCorrectResetURL(email: String!, token: String!): Boolean!
@@ -52,6 +50,6 @@ const schema = buildSchema(`
         name: String!
         email: String!
     },
-`)
+`
 
-module.exports = schema
+module.exports = userSchema
